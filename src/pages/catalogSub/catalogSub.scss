@@ -1,0 +1,607 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.hidden {
+    display: none !important;
+}
+
+.purple {
+    background-color: #3533A1;
+}
+
+li {
+    list-style-type: none;
+}
+
+button {
+    outline: none;
+    background: none;
+    border: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+* {
+    font-family: Montserrat;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.donate-page {
+    .main__container {
+        background-color: #1B1B1B;
+
+        * {
+            color: white;
+        }
+
+        .main__top {
+            display: flex;
+            padding-top: 98px;
+            padding-left: 270px;
+            margin-bottom: 80px;
+
+            .top__img {
+                margin-right: 160px;
+            }
+
+            .top__block {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .block__title {
+                    font-size: 45px;
+                    max-height: 39px;
+                    margin-bottom: 68px;
+                }
+
+                .block__text {
+                    font-size: 35px;
+                    max-height: 39px;
+                    padding-bottom: 46px;
+                }
+
+                .block__button {
+                    display: flex;
+                    gap: 49px;
+
+                    .button {
+                        font-size: 35px;
+                        padding: 17px 61px;
+                        background-color: #3533A1;
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+
+        .bottom {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .main__bottom {
+                flex-direction: row;
+                display: flex;
+                gap: 280px;
+
+                .bottom__info {
+                    .info__button {
+                        display: flex;
+
+                        .button__text {
+                            font-size: 35px;
+                            background: #282680;
+                            padding: 33px 90px 33px 50px;
+                        }
+                    }
+
+                    .info__drop {
+                        padding-top: 30px;
+
+                        .drop__instruction,
+                        .drop__faq {
+                            display: flex;
+                            gap: 28px;
+                            flex-direction: column;
+
+                            .text {
+                                font-size: 30px;
+                                max-width: 560px;
+                            }
+                        }
+                    }
+                }
+
+                .bottom__form {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 17px;
+                    padding-bottom: 174px;
+
+                    .block {
+                        background-color: #3533A1;
+                        width: 820px;
+
+                        input {
+                            background-color: #3533A1;
+                            border: none;
+                        }
+                    }
+
+                    .form__money {
+                        padding: 6px 0 28px 39px;
+                        width: 781px;
+
+                        .money__title {
+                            font-size: 20px;
+                        }
+
+                        .input__money {
+                            font-size: 35px;
+                        }
+                    }
+
+                    .form__login {
+                        width: 760px;
+                        padding: 38px 15px 38px 45px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        .input__login {
+                            font-size: 35px;
+                        }
+
+                        .login__button {
+                            font-size: 35px;
+                        }
+                    }
+
+                    .form__promo {
+                        padding: 35px 0 35px 39px;
+                        width: 781px;
+
+                        .input__promo {
+                            font-size: 35px;
+                        }
+                    }
+
+                    .form__end {
+                        padding: 30px 0 30px 39px;
+                        width: 781px;
+                        background-color: #282680;
+
+                        .end__title {
+                            font-size: 35px;
+                        }
+
+                        .end__donate {
+                            font-size: 35px;
+                        }
+                    }
+
+                    .form__button {
+                        display: flex;
+                        align-items: center;
+                        flex-direction: column;
+                        background-color: #1B9C10;
+                        padding: 30px 0;
+                        font-size: 35px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1919px) {
+        .main__container {
+            .main__top {
+                padding-left: 170px;
+
+                .top__img {
+                    margin-right: 60px;
+                }
+
+                .top__block {
+                    .block__button {
+                        gap: 20px;
+
+                        .button {
+                            font-size: 25px;
+                        }
+                    }
+                }
+            }
+
+            .bottom {
+                .main__bottom {
+                    gap: 5vw;
+
+                    .bottom__info {
+                        .info__button {
+                            max-width: 65%;
+
+                            .button__text {
+                                font-size: 30px;
+                                background: #282680;
+                                padding: 27px 30px 27px 30px;
+                            }
+                        }
+
+                        .info__drop {
+
+                            .drop__instruction,
+                            .drop__faq {
+                                .text {
+                                    font-size: 25px;
+                                }
+                            }
+                        }
+                    }
+
+                    .bottom__form {
+                        .block {
+                            max-width: 40vw;
+                        }
+
+                        .form__money {
+                            padding: 6px 0 28px 20px;
+
+                            .money__title {
+                                font-size: 18px;
+                            }
+
+                            .input__money {
+                                font-size: 30px;
+                            }
+                        }
+
+                        .form__login {
+                            padding: 38px 0 38px 20px;
+
+                            .input__login {
+                                font-size: 30px;
+                            }
+
+                            .login__button {
+                                font-size: 28px;
+                            }
+                        }
+
+                        .form__promo {
+                            padding: 35px 0 35px 20px;
+
+                            .input__promo {
+                                font-size: 30px;
+                            }
+                        }
+
+                        .form__end {
+                            padding: 30px 0 30px 20px;
+
+                            .end__title {
+                                font-size: 30px;
+                            }
+
+                            .end__donate {
+                                font-size: 30px;
+                            }
+                        }
+
+                        .form__button {
+                            font-size: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1340px) {
+        .main__container {
+            .main__top {
+                padding-left: 100px;
+                padding-right: 100px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+
+                .top__img {
+                    margin-right: 0;
+                    margin-bottom: 40px;
+                }
+
+                .top__block {
+                    .block__title {
+                        font-size: 35px;
+                        margin-bottom: 40px;
+                    }
+
+                    .block__text {
+                        font-size: 28px;
+                        padding-bottom: 30px;
+                    }
+
+                    .block__button {
+                        gap: 15px;
+
+                        .button {
+                            font-size: 20px;
+                            padding: 12px 30px;
+                        }
+                    }
+                }
+            }
+
+            .bottom {
+                .main__bottom {
+                    flex-direction: column;
+                    gap: 40px;
+                    align-items: center;
+
+                    .bottom__info {
+                        width: 100%;
+                        max-width: 600px;
+
+                        .info__button {
+                            max-width: 100%;
+                            justify-content: center;
+
+                            .button__text {
+                                font-size: 25px;
+                                padding: 20px 30px;
+                            }
+                        }
+
+                        .info__drop {
+
+                            .drop__instruction,
+                            .drop__faq {
+                                .text {
+                                    font-size: 22px;
+                                    max-width: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    .bottom__form {
+                        width: 100%;
+                        max-width: 600px;
+                        padding-bottom: 50px;
+
+                        .block {
+                            max-width: 100%;
+                            width: 100%;
+                        }
+
+                        .form__money {
+                            width: 100%;
+                            padding: 6px 0 28px 20px;
+                        }
+
+                        .form__login {
+                            width: 100%;
+                            padding: 20px;
+                        }
+
+                        .form__promo {
+                            width: 100%;
+                            padding: 20px;
+                        }
+
+                        .form__end {
+                            width: 100%;
+                            padding: 20px;
+                        }
+
+                        .form__button {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 900px) {
+        .main__container {
+            .main__top {
+                padding-left: 50px;
+                padding-right: 50px;
+                padding-top: 50px;
+                margin-bottom: 50px;
+
+                .top__img {
+                    width: 200px;
+                    margin-bottom: 30px;
+                }
+
+                .top__block {
+                    .block__title {
+                        font-size: 28px;
+                        margin-bottom: 30px;
+                    }
+
+                    .block__text {
+                        font-size: 22px;
+                        padding-bottom: 25px;
+                    }
+
+                    .block__button {
+                        gap: 10px;
+
+                        .button {
+                            font-size: 18px;
+                            padding: 10px 20px;
+                        }
+                    }
+                }
+            }
+
+            .bottom {
+                .main__bottom {
+                    gap: 30px;
+
+                    .bottom__info {
+                        .info__button {
+
+                            .button__text {
+                                font-size: 20px;
+                                padding: 15px 20px;
+                            }
+                        }
+
+                        .info__drop {
+
+                            .drop__instruction,
+                            .drop__faq {
+                                .text {
+                                    font-size: 18px;
+                                }
+                            }
+                        }
+                    }
+
+                    .bottom__form {
+                        gap: 15px;
+                        padding-bottom: 30px;
+
+                        .form__money {
+                            padding: 15px;
+
+                            .money__title {
+                                font-size: 16px;
+                            }
+
+                            .input__money {
+                                font-size: 20px;
+                            }
+                        }
+
+                        .form__login {
+                            padding: 15px;
+
+                            .input__login {
+                                font-size: 18px;
+                            }
+
+                            .login__button {
+                                font-size: 16px;
+                            }
+                        }
+
+                        .form__promo {
+                            padding: 15px;
+
+                            .input__promo {
+                                font-size: 18px;
+                            }
+                        }
+
+                        .form__end {
+                            padding: 15px;
+
+                            .end__title {
+                                font-size: 20px;
+                            }
+
+                            .end__donate {
+                                font-size: 18px;
+                            }
+                        }
+
+                        .form__button {
+                            font-size: 20px;
+                            padding: 20px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 500px) {
+        .main__container {
+            .main__top {
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-top: 30px;
+                margin-bottom: 30px;
+
+                .top__img {
+                    width: 150px;
+                    margin-bottom: 20px;
+                }
+
+                .top__block {
+                    .block__title {
+                        font-size: 24px;
+                        margin-bottom: 20px;
+                    }
+
+                    .block__text {
+                        font-size: 18px;
+                        padding-bottom: 20px;
+                    }
+
+                    .block__button {
+                        flex-direction: column;
+                        gap: 10px;
+
+                        .button {
+                            font-size: 16px;
+                            padding: 12px 20px;
+                        }
+                    }
+                }
+            }
+
+            .bottom {
+                .main__bottom {
+                    gap: 20px;
+
+                    .bottom__info {
+                        .info__button {
+
+                            .button__text {
+                                font-size: 18px;
+                                text-align: center;
+                                padding: 15px;
+                            }
+                        }
+
+                        .info__drop {
+
+                            .drop__instruction,
+                            .drop__faq {
+                                .text {
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+                    }
+
+                    .bottom__form {
+                        .block{
+                            max-width: 80%;
+                        }
+                        .form__button {
+                            font-size: 18px;
+                            padding: 15px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
