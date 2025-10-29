@@ -33,7 +33,7 @@ a {
     margin: 0 auto;
 }
 
-.donate-page {
+.catalog-page {
     .main__container {
         background-color: #1B1B1B;
 
@@ -41,10 +41,8 @@ a {
             color: white;
         }
 
-        .main__top {
+        .top {
             display: flex;
-            padding-top: 98px;
-            padding-left: 270px;
             margin-bottom: 80px;
 
             .top__img {
@@ -52,9 +50,10 @@ a {
             }
 
             .top__block {
+                margin-bottom: 40px;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
+                flex-wrap: wrap;
 
                 .block__title {
                     font-size: 45px;
@@ -204,9 +203,7 @@ a {
 
     @media (max-width: 1919px) {
         .main__container {
-            .main__top {
-                padding-left: 170px;
-
+            .top {
                 .top__img {
                     margin-right: 60px;
                 }
@@ -308,7 +305,7 @@ a {
 
     @media (max-width: 1340px) {
         .main__container {
-            .main__top {
+            .top {
                 padding-left: 100px;
                 padding-right: 100px;
                 flex-direction: column;
@@ -415,7 +412,7 @@ a {
 
     @media (max-width: 900px) {
         .main__container {
-            .main__top {
+            .top {
                 padding-left: 50px;
                 padding-right: 50px;
                 padding-top: 50px;

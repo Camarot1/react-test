@@ -12,29 +12,41 @@ import WarningContent from './pages/warning/warning.jsx'
 import Login from './pages/login/login.jsx'
 import Register from './pages/register/register.jsx'
 import Profile from './pages/profile/profile.jsx'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import OrderPage from './pages/order/orderPage.jsx'
+import NotFound from './pages/notFound/notFound.jsx'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
+import AdminPage from './pages/admin/admin.page.jsx'
+import AdminSubs from './pages/admin/admin.subs.jsx'
+import AdminUsers from './pages/admin/admin.users.jsx'
+import AdminGames from './pages/admin/admin.games.jsx'
 function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
         <main>
+          <Header />
           <Routes>
             <Route path="/" element={<MainContent />} />
             <Route path="/catalog" element={<CatalogContent />} />
             <Route path="/catalogSub" element={<CatalogSubContent />} />
-            <Route path="/item" element={<ItemContent />} />
-            <Route path="/sub" element={<SubContent />}></Route>
+            <Route path="/item/:id" element={<ItemContent />} />
+            <Route path="/sub/:id" element={<SubContent />}></Route>
             <Route path="/donate" element={<DonateContent />}></Route>
             <Route path="/rewiews" element={<RewiewsContent />}></Route>
             <Route path="/warning" element={<WarningContent />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/orderPage" element={<OrderPage />}></Route>
+            <Route path="/admin" element={<AdminPage />}></Route>
+            <Route path="/admin/subs" element={<AdminSubs />}></Route>
+            <Route path="/admin/users" element={<AdminUsers />}></Route>
+            <Route path="/admin/games" element={<AdminGames />}></Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
+          <Footer />
         </main>
-        <Footer />
       </div>
     </Router>
   );

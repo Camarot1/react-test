@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './sub.scss'
-import { Link } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react'
 
 export default function SubContent() {
+    const { id } = useParams()
+    const navigate = useNavigate()
+    const [sub, setSub] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        fetch(`http://localhost:4000/subs/${id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setSub(data)
+                setLoading(false)
+            })
+            .catch((err) => {
+                console.error("Ошибка загрузки", err)
+                setLoading(false)
+            })
+    }, [id])
+    if (loading) {
+        return <div>Загрузка...</div>
+    }
     return (
         <motion.div className="sub-page"
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -15,67 +35,61 @@ export default function SubContent() {
                 <div className="main__container container">
                     <Link to="/catalogSub">
                         <div className="main__back">
-                            <img src="./img/row__button.svg" alt="" />
+                            <img src="../img/row__button.svg" alt="" />
                             <div className="back__title">К каталогу подписок</div>
                         </div></Link>
                     <div className="main__info">
-                        <img src="./img/sub__img-big.svg" className="info__img" alt="" />
+                        <img src="../img/sub__img-big.svg" className="info__img" alt="" />
                         <div className="info__content">
-                            <div className="content__title">Купить подписку <span className="content">NAME NAME</span></div>
+                            <div className="content__title">Купить подписку <span className="content">{sub?.title}</span></div>
                             <div className="content__conditions">
-                                <p className="condition">Нужен впн</p>
-                                <p className="condition">Без передачи аккаунта</p>
-                                <p className="condition">Официальные ключи</p>
-                                <p className="condition">Моментальная доставка</p>
+                                {sub?.need_vpn !== null && (
+                                    <p className="condition">
+                                        {sub.need_vpn ? 'Нужен VPN' : 'Без VPN'}
+                                    </p>
+                                )}
+                                {sub?.is_official !== null && (
+                                    <p className="condition">
+                                        {sub.need_vpn ? ' Неофициальные ключи' : 'Официальные ключи'}
+                                    </p>
+                                )}
+                                {sub?.instant_delivery !== null && (
+                                    <p className="condition">
+                                        {sub.need_vpn ? ' Доставка не моментальная' : 'Моментальная доставка'}
+                                    </p>
+                                )}
+                                {sub?.no_account_transfer !== null && (
+                                    <p className="condition">
+                                        {sub.need_vpn ? 'Товар кодом' : ' С передачей аккаунта'}
+                                    </p>
+                                )}
                             </div>
                         </div>
                     </div>
                     <div className="main__content">
                         <div className="content__price">
                             <div className="price__block">
-                                <div className="block__img"><img src="./img/sub__img-small.svg" alt="" /></div>
+                                { /*<div className="block__img"><img src="./img/sub__img-small.svg" alt="" /></div> */}
                                 <div className="block__money">
-                                    <p className="money__title">NAME NAME</p>
-                                    <p className="money__text">1000₽</p>
-                                </div>
-                            </div>
-                            <div className="price__block">
-                                <div className="block__img"><img src="./img/sub__img-small.svg" alt="" /></div>
-                                <div className="block__money">
-                                    <p className="money__title">NAME NAME</p>
-                                    <p className="money__text">1000₽</p>
-                                </div>
-                            </div>
-                            <div className="price__block">
-                                <div className="block__img"><img src="./img/sub__img-small.svg" alt="" /></div>
-                                <div className="block__money">
-                                    <p className="money__title">NAME NAME</p>
-                                    <p className="money__text">1000₽</p>
-                                </div>
-                            </div>
-                            <div className="price__block">
-                                <div className="block__img"><img src="./img/sub__img-small.svg" alt="" /></div>
-                                <div className="block__money">
-                                    <p className="money__title">NAME NAME</p>
-                                    <p className="money__text">1000₽</p>
-                                </div>
-                            </div>
-                            <div className="price__block">
-                                <div className="block__img"><img src="./img/sub__img-small.svg" alt="" /></div>
-                                <div className="block__money">
-                                    <p className="money__title">NAME NAME</p>
-                                    <p className="money__text">1000₽</p>
-                                </div>
-                            </div>
-                            <div className="price__block">
-                                <div className="block__img"><img src="./img/sub__img-small.svg" alt="" /></div>
-                                <div className="block__money">
-                                    <p className="money__title">NAME NAME</p>
-                                    <p className="money__text">1000₽</p>
+                                    <p className="money__title">{sub?.title || "Название подписки"}</p>
+                                    <p className="money__text">{sub?.priceNew}₽</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="content__button">Купить</div>
+                        <div
+                            className="content__button"
+                            onClick={() => navigate('/orderPage', {
+                                state: {
+                                    type: 'subscription',
+                                    title: sub?.title,
+                                    price: sub?.priceNew + '₽',
+                                    subId: sub?.id
+                                }
+                            })}
+                        >
+                            Купить
+                        </div>
+
                         <div className="content__instructions">
                             <p className="instruction__title">Инструкиция</p>
                             <p className="instruction__text">1. Выберите желаемый товар</p>

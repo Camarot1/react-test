@@ -1,38 +1,134 @@
-import React, { useEffect } from 'react'
-import './register.scss'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import './register.scss';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Register() {
+    const [formData, setFormData] = useState({
+        login: '',
+        password: '',
+        confirmPassword: ''
+    });
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setLoading(true);
+
+        // Базовая валидация
+        if (!formData.login || !formData.password || !formData.confirmPassword) {
+            setError('Все поля обязательны для заполнения');
+            setLoading(false);
+            return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            setError('Пароли не совпадают');
+            setLoading(false);
+            return;
+        }
+
+        if (formData.password.length < 3) {
+            setError('Пароль должен содержать минимум 3 символа');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:4000/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                localStorage.setItem('user', JSON.stringify(data.user));
+                alert('Регистрация прошла успешно!');
+                navigate('/profile');
+            } else {
+                setError(data.message);
+            }
+        } catch (error) {
+            console.error('Ошибка при регистрации:', error);
+            setError('Ошибка соединения с сервером');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="register-page">
             <main className="main">
                 <div className="main__container container">
-                    <div className="main__form">
+                    <form className="main__form" onSubmit={handleSubmit}>
                         <p className="form__title">Регистрация</p>
+
+                        {error && <div className="error-message">{error}</div>}
 
                         <div className="form__block">
                             <p className="block__text">Логин</p>
-                            <input type="text" className="block__input" />
-                        </div>
-
-                        <div className="form__block">
-                            <p className="block__text">Почта</p>
-                            <input type="email" className="block__input" />
+                            <input 
+                                type="text" 
+                                className="block__input" 
+                                name="login"
+                                value={formData.login}
+                                onChange={handleInputChange}
+                                required
+                            />
                         </div>
 
                         <div className="form__block">
                             <p className="block__text">Пароль</p>
-                            <input type="password" className="block__input" />
+                            <input 
+                                type="password" 
+                                className="block__input" 
+                                name="password"
+                                value={formData.password}
+                                onChange={handleInputChange}
+                                required
+                            />
                         </div>
 
                         <div className="form__block">
                             <p className="block__text">Повторите пароль</p>
-                            <input type="password" className="block__input" />
+                            <input 
+                                type="password" 
+                                className="block__input" 
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleInputChange}
+                                required
+                            />
                         </div>
 
-                        <a className="form__profile" href="./profile.html">Регистрация</a>
-                    </div>
+                        <button 
+                            type="submit" 
+                            className="form__profile"
+                            disabled={loading}
+                        >
+                            {loading ? 'Регистрация...' : 'Регистрация'}
+                        </button>
+
+                        <div className="form__login-link">
+                            Уже есть аккаунт? <Link to="/login">Войти</Link>
+                        </div>
+                    </form>
                 </div>
-            </main></div>
-    )
+            </main>
+        </div>
+    );
 }

@@ -1,0 +1,75 @@
+.table__text {
+    color: white;
+    padding-right: 15px;
+}
+
+.admin-page {
+    * {
+        color: black;
+    }
+}
+.main{
+    background-color: black;
+}
+.admin-page__nav-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start;
+    gap: 20px;
+
+    .admin-page__nav-btn {
+        padding: 25px 15px;
+        border: 1px solid #3533A1;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+}
+.admin-subs-page{
+    *{
+        color: white;
+    }
+    .back-btn{
+        cursor: pointer;
+    }
+    .table{
+        display: flex;
+        flex-direction: row;
+        gap:10px;
+    }
+    .content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 50px;
+        margin-top:40px;
+    }
+}
+.admin-page__logout-btn {
+    padding: 25px 15px;
+    background-color: #3533A1;
+    cursor: pointer;
+}
+.denied{
+    color: black;
+}
+.checkboxes{
+    display: flex;
+    flex-direction: column;
+}
+.form-color{
+    color: black;
+}
+.admin-users-page{
+    *{
+        color:white;
+    }
+}
+.admin-games-page{
+    .form-input{
+        color:black;
+    }
+    *{
+        color:white;
+    }
+}

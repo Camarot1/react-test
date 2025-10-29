@@ -8,10 +8,10 @@ export default function Header() {
           <p className="header__name logo__name">SWAGA</p>
         </a>
         <div className="header__navigation">
-          <a href="./catalogSub"><button className="navigation__button header__hide big2">Подписки</button></a>
+          <a href="/catalogSub"><button className="navigation__button header__hide big2">Подписки</button></a>
           <input type="text" className="navigation__search header__hide" placeholder="поиск по товарам, категориям" />
-          <a href="./catalog"><button className="navigation__button header__hide big">Игры</button></a>
-          <a href="./warning"><button className="navigation__button">Профиль</button></a>
+          <a href="/catalog"><button className="navigation__button header__hide big">Игры</button></a>
+          <a href="/warning"><button className="navigation__button">Профиль</button></a>
         </div>
         <div className="header__burger">
           <div className="burger">

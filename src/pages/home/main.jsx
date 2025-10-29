@@ -71,7 +71,7 @@ export default function MainContent() {
 
         <div className="main__info">
           <div className="info__top">
-            <a href="./sub">
+            <a href="./catalogSub">
               <div className="top__first">
                 <p className="first__title">Покупка ключей активации</p>
                 <img className="first__img" src="/img/cardsImg.svg" alt="" />

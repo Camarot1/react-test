@@ -7,7 +7,7 @@ export default function CatalogSubContent() {
   const [cards, setCards] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:4000/cards")
+    fetch("http://localhost:4000/subs")
       .then((res) => res.json())
       .then((data) => setCards(data))
       .catch((err) => console.error("Ошибка загрузки:", err))
@@ -20,20 +20,18 @@ export default function CatalogSubContent() {
             <p className="top__title">Популярные подписки</p>
             <div className="top__block position__block">
               {cards.map((card) => (
-                <Link to="/sub" key={card.id}>
+                <Link to={`/sub/${card.id}`} key={card.id}>
                   <div className="row__item">
                     <img src={card.img} alt={card.title} />
                     <p className="item__title">{card.title}</p>
                     <div className="item__price">
-                      <p className="price-now">{card.priceNew}</p>
-                      <p className="price-old">{card.priceOld}</p>
+                      <p className="price-now">{card.priceNew}₽</p>
                     </div>
                   </div>
                 </Link>
               ))}
-
             </div>
-          </div>
+          </div>      
         </div>
       </main>
     </div>

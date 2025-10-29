@@ -22,10 +22,24 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer__logo">
-          <a href="./index.html">
+          <a href="/">
             <p className="logo__name">SWAGA</p>
           </a>
           <p className="logo__date">2025</p>
+
+
+          <div className="steam-attribution-compact">
+            <span>Данные о играх предоставлены </span>
+            <a
+              href="https://store.steampowered.com/login/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="steam-link"
+            >
+              Steam
+            </a>
+            <a href="https://store.steampowered.com/login/"><img src="https://community.fastly.steamstatic.com/public/images/signinthroughsteam/sits_01.png" width="180" height="35" border="0"></img></a>
+          </div>
         </div>
       </div>
     </footer>

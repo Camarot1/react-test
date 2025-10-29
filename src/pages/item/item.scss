@@ -83,6 +83,7 @@ a {
                     .galery__right-tags {
                         display: flex;
                         flex-direction: row;
+                        flex-wrap:wrap;
                         align-items: center;
                         gap: 22px;
                         padding-bottom: 93px;
@@ -123,6 +124,7 @@ a {
                         .choose__select {
                             width: 518px;
                             height: 72px;
+                            color:black;
                         }
 
                         .choose__payment {
@@ -503,6 +505,14 @@ a {
                     }
 
                     .content__text-second {
+                        .second__text{
+                            max-width: 50vw;
+                            *{
+                                img{
+                                    max-width: 50vw;
+                                }
+                            }
+                        }
                         .second__title {
                             margin: 0 10px;
                         }

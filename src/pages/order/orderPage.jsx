@@ -1,0 +1,85 @@
+// pages/order/OrderPage.jsx
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import "./orderPage.scss"
+export default function OrderPage() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [orderData, setOrderData] = useState(null);
+    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState('');
+
+    useEffect(() => {
+        if (location.state) {
+            setOrderData(location.state);
+            if (location.state.steamLogin) {
+                setLogin(location.state.steamLogin);
+            }
+        } else {
+            navigate('/');
+        }
+    }, [location, navigate]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        alert('Отправили информацию на вашу почту.');
+        navigate('/');
+    };
+
+    if (!orderData) {
+        return <div>Загрузка...</div>;
+    }
+
+    return (
+        <div className="order-page">
+            <div className="container">
+                <button className="back-btn" onClick={() => navigate(-1)}>
+                    ← Назад
+                </button>
+                
+                <h1>Оформление заказа</h1>
+
+                <div className="order-item">
+                    <h3>{orderData.title}</h3>
+                    <p>Цена: {orderData.price}₽</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="order-form">
+                    <div className="form-group">
+                        <label>Email *</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="your@email.com"
+                            required
+                        />
+                    </div>
+
+                    {(orderData.type === 'game' || orderData.type === 'donate') && (
+                        <div className="form-group">
+                            <label>
+                                {orderData.type === 'game' ? 'Steam логин *' : 'Steam логин для пополнения *'}
+                            </label>
+                            <input
+                                type="text"
+                                value={login}
+                                onChange={(e) => setLogin(e.target.value)}
+                                placeholder="Ваш Steam логин"
+                                required
+                            />
+                        </div>
+                    )}
+
+                    <div className="order-total">
+                        Итого: {orderData.price}₽
+                    </div>
+
+                    <button type="submit" className="submit-btn">
+                        Подтвердить заказ
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
+}

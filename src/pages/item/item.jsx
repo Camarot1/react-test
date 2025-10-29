@@ -1,26 +1,65 @@
-import React, { useEffect } from 'react';
-import './item.scss'
-import { Link } from 'react-router-dom'
-import { motion } from "motion/react"
+import React, { useEffect, useState } from 'react';
+import './item.scss';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { motion } from "motion/react";
 
 export default function ItemContent() {
+    const { id } = useParams();
+    const navigate = useNavigate()
+    const [game, setGame] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [selectedCountryIndex, setSelectedCountryIndex] = useState(0);
+    const [selectedEdition, setSelectedEdition] = useState("0");
+
     useEffect(() => {
-        if (window.Swiper) {
-            const swiper = new window.Swiper(".item-swiper", {
-                slidesPerView: 'auto',
-                freeMode: true,
-                breakpoints: {
-                    450: { slidesPerView: 1.5 },
-                    850: { slidesPerView: 2.4, spaceBetween: 10 },
-                    1100: { slidesPerView: 3, spaceBetween: 5 },
-                    1300: { slidesPerView: 3 },
-                    1600: { slidesPerView: 3 },
-                    1900: { slidesPerView: 4 }
-                },
-                spaceBetween: 3,
+        fetch(`http://localhost:4000/games/${id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setGame(data);
+                setLoading(false);
+
+                // не даем прогрузиться сваперу до прогрузки данных а то получим атятя
+                if (window.Swiper && data.screenshots && data.screenshots.length > 0) {
+                    setTimeout(() => {
+                        const swiper = new window.Swiper(".item-swiper", {
+                            slidesPerView: 'auto',
+                            freeMode: true,
+                            breakpoints: {
+                                450: { slidesPerView: 1.5 },
+                                850: { slidesPerView: 2.4, spaceBetween: 10 },
+                                1100: { slidesPerView: 3, spaceBetween: 5 },
+                                1300: { slidesPerView: 3 },
+                                1600: { slidesPerView: 3 },
+                                1900: { slidesPerView: 4 }
+                            },
+                            spaceBetween: 3,
+                        });
+                    }, 100);
+                }
+            })
+            .catch((err) => {
+                console.error("Ошибка загрузки:", err);
+                setLoading(false);
             });
-        }
-    }, []);
+    }, [id]);
+
+    if (loading) {
+        return (
+            <div className="item-page">
+                <div className="loading">Загрузка...</div>
+            </div>
+        );
+    }
+
+    // Создаем массив объектов страна-цена
+    const countryPricePairs = game.countries.map((country, index) => ({
+        country,
+        price: game.prices[index]
+    }));
+
+    // Получаем текущую цену на основе выбранной страны
+    const currentPrice = countryPricePairs[selectedCountryIndex]?.price || '0';
+
     return (
         <motion.div className="item-page"
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -29,107 +68,108 @@ export default function ItemContent() {
         >
             <main className="main">
                 <div className="main__container container">
-                    <Link to="/catalog"><div className="main__back">
-                        <img src="/img/row__button.svg" alt="" />
-                        <div className="back__title">К каталогу игр</div>
-                    </div></Link>
+                    <Link to="/catalog">
+                        <div className="main__back">
+                            <img src="/img/row__button.svg" alt="" />
+                            <div className="back__title">К каталогу игр</div>
+                        </div>
+                    </Link>
+
                     <div className="main__content">
                         <div className="content__galery">
                             <div className="galery__left">
                                 <div className="galery__left-img">
-                                    <img src="./img/catalog__img-big.svg" alt="" className="left-img" />
+                                    <img src="./img/catalog__img-big.svg" className="info__img" alt={game.name} />
                                 </div>
-                                <select className="galery__left-select">
-                                    <option className="select__option select__option-choose" value="0" selected>
+                                <select
+                                    className="galery__left-select"
+                                    value={selectedCountryIndex}
+                                    onChange={(e) => setSelectedCountryIndex(parseInt(e.target.value))}
+                                >
+                                    <option value="0" disabled>
                                         Выберите регион товара
                                     </option>
-                                    <option className="select__option" value="">
-                                        Россия
-                                    </option>
-                                    <option className="select__option" value="">
-                                        Армения
-                                    </option>
-                                    <option className="select__option" value="">
-                                        Азербайджан
-                                    </option>
-                                    <option className="select__option" value="">
-                                        Беларусь
-                                    </option>
-                                    <option className="select__option" value="">
-                                        Украина
-                                    </option>
+                                    {countryPricePairs.map((item, index) => (
+                                        <option key={index} value={index}>
+                                            {item.country}
+                                        </option>
+                                    ))}
                                 </select>
-                                <p className="galery__left-rewiews">Крайне положительные (93.67%)</p>
                             </div>
+
                             <div className="galery__right">
-                                <p className="galery__right-title">GAME NAME</p>
+                                <p className="galery__right-title">{game.name}</p>
+
                                 <ul className="galery__right-tags">
-                                    <li className="tag">Шутер</li>
-                                    <li className="tag">Мультиплеер</li>
-                                    <li className="tag">Песочница</li>
+                                    {game.genres && game.genres.map((genre, index) => (
+                                        <li key={index} className="tag">{genre}</li>
+                                    ))}
                                 </ul>
-                                <div className="swiper mySwiper galery__right-slider item-swiper">
-                                    <div className="swiper-wrapper">
-                                        <div className="swiper-slide">
-                                            <img className="slider-img one" src="./img/catalog__img-small.svg" alt="" />
-                                        </div>
-                                        <div className="swiper-slide">
-                                            <img className="slider-img two" src="./img/catalog__img-small.svg" alt="" />
-                                        </div>
-                                        <div className="swiper-slide">
-                                            <img className="slider-img three" src="./img/catalog__img-small.svg" alt="" />
-                                        </div>
-                                        <div className="swiper-slide">
-                                            <img className="slider-img four" src="./img/catalog__img-small.svg" alt="" />
-                                        </div>
-                                        <div className="swiper-slide">
-                                            <img className="slider-img five" src="./img/catalog__img-small.svg" alt="" />
+                                {game.screenshots && game.screenshots.length > 0 && (
+                                    <div className="swiper mySwiper galery__right-slider item-swiper">
+                                        <div className="swiper-wrapper">
+                                            {game.screenshots.map((screenshot, index) => (
+                                                <div key={index} className="swiper-slide">
+                                                    <img
+                                                        className="slider-img"
+                                                        src={screenshot}
+                                                        alt={`${game.name} скриншот ${index + 1}`}
+                                                    />
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
-                                    <div className="swiper-pagination"></div>
-                                </div>
+                                )}
+
                                 <div className="galery__right-choose">
-                                    <p className="choose__title">Издание</p>
-                                    <select className="choose__select">
-                                        <option value="0">-</option>
-                                        <option value="1">Standard Edition</option>
-                                    </select>
                                     <div className="choose__payment">
+
                                         <p className="payment__money">
-                                            Цена: <span className="money">1000₽</span>
+                                            Цена: <span className="money">{currentPrice}₽</span>
                                         </p>
-                                        <button className="payment__button">Купить</button>
+                                        <button
+                                            className="payment__button"
+                                            onClick={() => navigate('/orderPage', {
+                                                state: {
+                                                    type: 'game',
+                                                    title: game.name,
+                                                    price: currentPrice + '₽',
+                                                    gameId: game.id
+                                                }
+                                            })}
+                                        >
+                                            Купить
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div className="content__text">
-                            <div className="content__text-first">
-                                <div className="first__title">Системные требования</div>
-                                <div className="first__sys">
-                                    <p className="sys__min width">
-                                        Минимальные: 64-разрядные процессор и операционная система ОС *: Win 7/8/8.1/10 64bit Процессор: Intel
-                                        Core i3-6300t or equivalent [4 or more hardware threads] Оперативная память: 8 GB ОЗУ Видеокарта: NVIDIA
-                                        Geforce GTX 660 2GB or AMD Radeon HD 7850 2GB DirectX: версии 11 Место на диске: 45 GB
-                                    </p>
-                                    <p className="sys__rec width">
-                                        Рекомендованные: 64-разрядные процессор и операционная система ОС *: Win 7/8/8.1/10 64bit Процессор: Intel
-                                        Core i5-6600 or equivalent Оперативная память: 16 GB ОЗУ Видеокарта: NVIDIA Geforce GTX 1060 6GB or AMD
-                                        Radeon RX 480 8GB DirectX: версии 11 Место на диске: 45 GB
-                                    </p>
+                            {(game.min_requirements || game.rec_requirements) && (
+                                <div className="content__text-first">
+                                    <div className="first__title">Системные требования</div>
+                                    <div className="first__sys">
+                                        {game.min_requirements && game.min_requirements !== 'Не указаны' && (
+                                            <p className="sys__min width" dangerouslySetInnerHTML={{ __html: game.min_requirements }}></p>
+                                        )}
+                                        {game.rec_requirements && game.rec_requirements !== 'Не указаны' && (
+                                            <p className="sys__rec width" dangerouslySetInnerHTML={{ __html: game.rec_requirements }}></p>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="content__text-second">
-                                <p className="second__title">Описание</p>
-                                <p className="second__text">
-                                    Максимальное издание Titanfall™ 2 — лучший способ ознакомиться с одним из самых удивительных шутеров 2016
-                                    года. В этот комплект входит не только весь контент Эксклюзивного цифрового издания, но и набор «Ключ на
-                                    старт». Он немедленно разблокирует все классы Титанов и пилотов, а также предоставляет вам средства, токены
-                                    «Двойной опыт» и в придачу особую боевую раскраску для карабина R-201. С таким снаряжением вы сразу освоитесь
-                                    на Фронтире. Максимальное издание включает основную игру Titanfall™ 2, контент Эксклюзивного издания (Титаны
-                                    Прайм «Скорч» и «Ион», рисунки на корпус из Эксклюзивного
-                                </p>
-                            </div>
+                            )}
+
+                            {game.about_the_game && (
+                                <div className="content__text-second">
+                                    <p className="second__title">Описание</p>
+                                    <div
+                                        className="second__text"
+                                        dangerouslySetInnerHTML={{ __html: game.about_the_game }}
+                                    ></div>
+                                </div>
+                            )}
+
                             <div className="content__text-third">
                                 <p className="third__title">Подробнее о покупке</p>
                                 <p className="third__text">
@@ -144,5 +184,5 @@ export default function ItemContent() {
                 </div>
             </main>
         </motion.div>
-    )
+    );
 }
