@@ -10,7 +10,7 @@ export default function SubContent() {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetch(`http://localhost:4000/subs/${id}`)
+        fetch(`http://213.171.25.46:3000/subs/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setSub(data)

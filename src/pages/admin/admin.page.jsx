@@ -62,6 +62,12 @@ export default function AdminPage() {
                             >
                                 Игры
                             </button>
+                            <button 
+                                className="admin-page__nav-btn"
+                                onClick={()=> navigate('/admin/order')}
+                            >
+                                Заказы
+                            </button>
                         </div>
                     </div>
                 </div>

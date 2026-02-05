@@ -24,7 +24,7 @@ export default function MainContent() {
       });
     }
   }, []);
-  return (
+  return ( 
     <div className="main-page">
     <main className="main">
       <div className="main__container container">

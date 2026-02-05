@@ -14,12 +14,14 @@ import Register from './pages/register/register.jsx'
 import Profile from './pages/profile/profile.jsx'
 import OrderPage from './pages/order/orderPage.jsx'
 import NotFound from './pages/notFound/notFound.jsx'
+
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 import AdminPage from './pages/admin/admin.page.jsx'
 import AdminSubs from './pages/admin/admin.subs.jsx'
 import AdminUsers from './pages/admin/admin.users.jsx'
 import AdminGames from './pages/admin/admin.games.jsx'
+import AdminOrders from './pages/admin/admin.order.jsx'
 function App() {
   return (
     <Router>
@@ -43,6 +45,7 @@ function App() {
             <Route path="/admin/subs" element={<AdminSubs />}></Route>
             <Route path="/admin/users" element={<AdminUsers />}></Route>
             <Route path="/admin/games" element={<AdminGames />}></Route>
+            <Route path="/admin/order" element={<AdminOrders />}></Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

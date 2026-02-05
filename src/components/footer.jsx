@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
         <div className="footer__logo">
           <a href="/">
-            <p className="logo__name">SWAGA</p>
+            <p className="logo__name">СВАГА</p>
           </a>
           <p className="logo__date">2025</p>
 

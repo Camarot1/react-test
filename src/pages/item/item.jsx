@@ -12,27 +12,27 @@ export default function ItemContent() {
     const [selectedEdition, setSelectedEdition] = useState("0");
 
     useEffect(() => {
-        fetch(`http://localhost:4000/games/${id}`)
+        fetch(`http://213.171.25.46:3000/games/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setGame(data);
                 setLoading(false);
 
-                // не даем прогрузиться сваперу до прогрузки данных а то получим атятя
+                // не даем прогрузиться сваперу до прогрузки данных
                 if (window.Swiper && data.screenshots && data.screenshots.length > 0) {
                     setTimeout(() => {
                         const swiper = new window.Swiper(".item-swiper", {
-                            slidesPerView: 'auto',
+                            slidesPerView: 2,
                             freeMode: true,
                             breakpoints: {
-                                450: { slidesPerView: 1.5 },
-                                850: { slidesPerView: 2.4, spaceBetween: 10 },
-                                1100: { slidesPerView: 3, spaceBetween: 5 },
-                                1300: { slidesPerView: 3 },
-                                1600: { slidesPerView: 3 },
-                                1900: { slidesPerView: 4 }
+                                450: { slidesPerView: 2.1, spaceBetween: 10 },
+                                900: { slidesPerView: 3, spaceBetween: 10 },
+                                1100: { slidesPerView: 3, spaceBetween: 10 },
+                                1340: { slidesPerView: 2.2, spaceBetween: 10, },
+                                1600: { slidesPerView: 2.2, spaceBetween: 15, },
+                                1900: { slidesPerView: 2.1, spaceBetween: 30, }
                             },
-                            spaceBetween: 3,
+                            spaceBetween: 10,
                         });
                     }, 100);
                 }
@@ -48,16 +48,16 @@ export default function ItemContent() {
             <div className="item-page">
                 <div className="loading">Загрузка...</div>
             </div>
-        );
+        ); 
     }
 
-    // Создаем массив объектов страна-цена
+    // создаем массив объектов страна-цена
     const countryPricePairs = game.countries.map((country, index) => ({
         country,
         price: game.prices[index]
     }));
 
-    // Получаем текущую цену на основе выбранной страны
+    // получаем текущую цену на основе выбранной страны
     const currentPrice = countryPricePairs[selectedCountryIndex]?.price || '0';
 
     return (
@@ -79,16 +79,13 @@ export default function ItemContent() {
                         <div className="content__galery">
                             <div className="galery__left">
                                 <div className="galery__left-img">
-                                    <img src="./img/catalog__img-big.svg" className="info__img" alt={game.name} />
+                                    <img src={game.img} className="info__img" alt={game.name} />
                                 </div>
                                 <select
                                     className="galery__left-select"
                                     value={selectedCountryIndex}
                                     onChange={(e) => setSelectedCountryIndex(parseInt(e.target.value))}
                                 >
-                                    <option value="0" disabled>
-                                        Выберите регион товара
-                                    </option>
                                     {countryPricePairs.map((item, index) => (
                                         <option key={index} value={index}>
                                             {item.country}
@@ -126,6 +123,8 @@ export default function ItemContent() {
 
                                         <p className="payment__money">
                                             Цена: <span className="money">{currentPrice}₽</span>
+                                            <br />
+                                            Цена в Steam:<span className="money"> {game.steam_price || "Бесплатно"} </span>
                                         </p>
                                         <button
                                             className="payment__button"

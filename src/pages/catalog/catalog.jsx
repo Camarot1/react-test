@@ -6,14 +6,14 @@ export default function CatalogContent() {
   const [cards, setCards] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:4000/games")
+    fetch("http://213.171.25.46:3000/games")
       .then((res) => res.json())
       .then((data) => setCards(data))
       .catch((err) => console.error("Ошибка загрузки:", err))
   }, [])
   
   return (
-    <div className="catalog-page">
+    <div className="catalog-page-game">
       <main className="main">
         <div className="main__container container">
           <div className="top">
@@ -22,11 +22,10 @@ export default function CatalogContent() {
               {cards.map((card) => (
                 <Link to={`/item/${card.id}`} key={card.id}>
                   <div className="row__item">
-                    <img src="./img/catalog__img-big.svg" alt={card.title} />
+                    <img className="item__img" src={card.img_card} alt={card.title} />
                     <p className="item__title">{card.title}</p>
                     <div className="item__price">
                       <p className="price-now">{card.priceNew}₽</p>
-                      {/* priceOld оставлен в структуре но скрыт */}
                       {/* <p className="price-old">{card.priceOld}</p> */}
                     </div>
                   </div>

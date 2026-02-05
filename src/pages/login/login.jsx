@@ -14,7 +14,7 @@ export default function Login() {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:4000/users/login', {
+            const response = await fetch('http://213.171.25.46:3000/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

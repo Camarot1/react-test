@@ -1,13 +1,14 @@
-// pages/order/OrderPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import "./orderPage.scss"
+
 export default function OrderPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const [orderData, setOrderData] = useState(null);
     const [email, setEmail] = useState('');
     const [login, setLogin] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (location.state) {
@@ -20,10 +21,37 @@ export default function OrderPage() {
         }
     }, [location, navigate]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert('Отправили информацию на вашу почту.');
-        navigate('/');
+        setLoading(true);
+
+        try {
+            const response = await fetch('http://213.171.25.46:3000/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    login: login,
+                    price: orderData.price
+                }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert('Заказ успешно оформлен! Информация отправлена на вашу почту.');
+                navigate('/');
+            } else {
+                alert(`Ошибка: ${result.error}`);
+            }
+        } catch (error) {
+            console.error('Error creating order:', error);
+            alert('Ошибка соединения с сервером');
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (!orderData) {
@@ -72,11 +100,15 @@ export default function OrderPage() {
                     )}
 
                     <div className="order-total">
-                        Итого: {orderData.price}₽
+                        Итого: {orderData.price}
                     </div>
 
-                    <button type="submit" className="submit-btn">
-                        Подтвердить заказ
+                    <button 
+                        type="submit" 
+                        className="submit-btn"
+                        disabled={loading}
+                    >
+                        {loading ? 'Оформление...' : 'Подтвердить заказ'}
                     </button>
                 </form>
             </div>

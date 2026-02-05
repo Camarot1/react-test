@@ -5,7 +5,7 @@ export default function Header() {
     <header className="header">
       <div className="header__container container">
         <a href="/">
-          <p className="header__name logo__name">SWAGA</p>
+          <p className="header__name logo__name">СВАГА</p>
         </a>
         <div className="header__navigation">
           <a href="/catalogSub"><button className="navigation__button header__hide big2">Подписки</button></a>

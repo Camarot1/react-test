@@ -217,6 +217,7 @@ a {
             .main__content {
                 .content__galery {
                     .galery__right {
+
                         .galery__right-tags {
                             flex-wrap: wrap;
 
@@ -237,6 +238,13 @@ a {
 
                         .galery__right-slider {
                             max-width: 55vw;
+                            .swiper-wrapper{
+                                .swiper-slide{
+                                    img{
+                                        max-width: 20vw !important ; 
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -309,6 +317,13 @@ a {
 
                         .galery__right-slider {
                             max-width: 90vw;
+                            .swiper-wrapper{
+                                .swiper-slide{
+                                    img{
+                                        max-width: 30vw !important;
+                                    }
+                                }
+                            }
 
                         }
 
@@ -361,6 +376,13 @@ a {
 
                         .galery__right-slider {
                             max-width: 97vw;
+                            .swiper-wrapper{
+                                .swiper-slide{
+                                    img{
+                                        max-width: 40vw !important;
+                                    }
+                                }
+                            }
                         }
 
                         .galery__right-choose {

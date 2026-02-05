@@ -45,7 +45,7 @@ export default function Register() {
         }
 
         try {
-            const response = await fetch('http://localhost:4000/users/register', {
+            const response = await fetch('http://213.171.25.46:3000/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
